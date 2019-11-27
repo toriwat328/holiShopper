@@ -1,6 +1,4 @@
-# holiShopper
-
-# christmas-shopping
+# holiShopper - GA SEIR Group Project
 
 ## Collaborators
 
