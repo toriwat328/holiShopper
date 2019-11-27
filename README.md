@@ -155,7 +155,6 @@ $timeout(() => {
 5. Filter by recipientCategory and user sort functions
 6. Major CSS day
 
-![index before CSS](public/img/index.png)
 
 ### Friday
 1. Fix edit modal.  Took it out of the ng-repeat loop to avoid z-index issues.  Dryer codes without the use of $index
