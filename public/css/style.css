@@ -1,0 +1,356 @@
+html{
+    margin: 0;
+
+
+}
+
+body {
+    width: 100%;
+    background-image: url(https://storage.needpix.com/rsynced_images/silver-and-white-christmas-backgrou.jpg);
+    background-repeat: repeat;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+
+}
+
+main {
+    margin: 20px;
+    flex: 1 0 auto;
+    margin-bottom: 40px;
+}
+
+*, .row{
+  margin: 0;
+}
+
+img{
+  width: 200px;
+}
+
+
+button{
+  border: none;
+}
+
+.row-button{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal {
+  background-color: grey;
+  color: white;
+  position: fixed;
+  margin: 0 10vw;
+  margin-top: 100px;
+  padding-top: 3em;
+  top: 3em;
+  left: 0;
+  height: 80%;
+  width: 80%;
+  z-index: 6;
+  overflow: auto;
+  display : none;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding: 35px;
+  border-radius: 10px;
+}
+
+.modal h4 {
+    font-family: 'Pacifico', cursive;
+    text-align: center;
+}
+
+.modal h6 {
+    font-family: 'Pacifico', cursive;
+    text-align: center;
+}
+
+.edit {
+  display: block;
+
+}
+
+.maintitle h2 {
+   color: #004d40;
+   font-weight: 600;
+   text-align: center;
+   margin-bottom: 50px;
+   font-family: 'Pacifico', cursive;
+   font-size: 70px;
+}
+
+.maintitle h3 {
+   color: #004d40;
+   font-weight: 500;
+   text-align: center;
+   letter-spacing: 1.5px;
+}
+
+img {
+    width: 97%;
+    margin: 0 auto;
+    height: 238px;
+}
+
+nav {
+    margin: 0;
+    background-color: #b71c1c;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.navbar-fixed {
+    top: 0;
+    margin: 0 auto;
+    width: 100%
+
+}
+
+div.nav-wrapper {
+    width: 100%;
+    top: 0;
+}
+
+a{
+    margin: 0;
+}
+
+.wishlist, .bought {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    margin: 10px;
+    margin-left: 10px;
+}
+
+.card {
+    height: 460px;
+    margin: 10px;
+    z-index: 2;
+    width: 270px;
+    position: relative;
+
+}
+
+.high {
+    border: 3px solid #b71c1c
+}
+
+
+
+.chart {
+    background-color: lightgrey;
+    height: 350px;
+    margin-top: 45px;
+    margin-bottom: 100px;
+    padding: 10px;
+    width: 90%;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.chart h2 {
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+    color: #b71c1c;
+    font-size: 55px;
+}
+
+.chart p {
+    text-align: center;
+    font-weight: 600;
+    padding: 10px;
+
+}
+
+span.card-title.activator.grey-text.text-darken-4 {
+    font-size: 18px;
+    margin: 0;
+}
+
+select{
+    width: 10%;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    background: lightgrey;
+    margin: 0;
+}
+
+footer a{
+    color: black;
+    text-decoration: underline;
+    margin: 20px;
+    line-height: 55px;
+}
+
+ footer h6 {
+    margin: 20px;
+    font-family: 'Pacifico', cursive;
+}
+
+.title h2 {
+    font-size: 45px;
+    color:#b71c1c;
+    font-weight: 500;
+    font-family: 'Pacifico', cursive;
+    margin-left: 0px;
+
+}
+
+.sidebar {
+    background: #004d40;
+    color: white;
+    height: 400px;
+    position: sticky;
+    left: 0;
+    top: 200px;
+    font-family: 'Pacifico', cursive;
+    line-height: 2;
+    bottom: 200px;
+    margin-left: 0px;
+    width: 30%;
+    overflow: scroll;
+
+}
+
+.sidebar h2 {
+    font-size: 25px;
+    line-height: 1;
+    vertical-align: middle;
+
+}
+
+table {
+    margin-bottom: 100px;
+}
+
+input[type="submit"]{
+    vertical-align: middle;
+    line-height: 36px;
+}
+
+input[type="radio"]:not(:checked), input[type="radio"]:checked {
+     position: relative;
+     opacity: 1;
+}
+
+.brand-logo {
+    font-family: 'Pacifico', cursive;
+}
+
+span.tags {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+#cattag {
+    background-color: #004d40;
+    color: white;
+    padding: 3px;
+    font-weight: 500;
+}
+
+#cattag2 {
+    background-color: #004d40;
+    color: white;
+    padding: 3px;
+    font-weight: 500;
+}
+
+.card-content a {
+    color: #004d40;
+    text-decoration: underline;
+}
+
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.countdown {
+    border-bottom: 3px dotted #b71c1c;
+    padding-bottom: 10px;
+}
+
+.countdown h4 {
+    font-size: 25px;
+    font-family: Helvetica, sans-serif;
+    /* font-family: 'Pacifico', cursive; */
+    text-align: center;
+    font-weight: 600;
+
+}
+
+.countdown span {
+    font-size: 35px;
+    line-height: 1;
+    color: white;
+    text-shadow: 2px 2px 2px #b71c1c;
+
+
+}
+
+/* CSS for slideshow */
+
+.slides {
+    position: relative;
+    width: 250px;
+    /* height: 50px; */
+    padding: 0px;
+    margin: 0 auto;
+    list-style-type: none;
+    display: inline-block;
+}
+
+.carousel{
+  width: 60%;
+  height: 250px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 70px;
+  margin-bottom: 65px;
+}
+
+.logo {
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+    text-shadow: 1px 1px 1px #b71c1c;
+    color: white;
+    background-color: #004d40;
+    top: 0;
+    margin-top: 0;
+    border-bottom: 10px solid #b71c1c;
+
+}
+
+.logo h1 {
+    font-size: 80px;
+    margin-top: 0;
+}
+
+.logo p {
+    text-shadow: none;
+    padding-bottom: 10px;
+    color: white;
+}
+legend {
+    padding: 0px 10px;
+    font-family: 'Pacifico', cursive;
+    font-size: 28px;
+    color: #b71c1c;
+}
+
+fieldset {
+    background-color: white;
+}

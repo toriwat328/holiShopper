@@ -1,0 +1,306 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<!DOCTYPE html>
+<html lang="en" dir="ltr" ng-app="MyApp">
+	<head>
+		<meta charset="utf-8" />
+		<title>holiShopper</title>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"
+			charset="utf-8"
+		></script>
+		<script src="/js/app.js" charset="utf-8"></script>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+  		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+
+		<link rel="stylesheet" href="/css/style.css" />
+	</head>
+	<body ng-controller="MyController as ctrl">
+		<!-- Log In and Sign up -->
+		<section ng-if="ctrl.loggedInUser === false">
+			<div class="logo">
+				<h1>holiShopper</h1>
+				<p>Upgrade Your Holiday Shopping List</p>
+			</div>
+			<div class="container">
+				<main>
+					<fieldset>
+						<legend>Sign Up</legend>
+						<form ng-submit="ctrl.signup()">
+							USERNAME <input type="text" ng-model="ctrl.signupUsername">
+							PASSWORD <input type="password" ng-model="ctrl.signupPassword">
+							<input type="submit" class="waves-effect waves-light btn teal darken-4" value="Sign Up">
+						</form>
+					</fieldset>
+					<fieldset>
+						<legend>Log In</legend>
+						<form ng-submit="ctrl.login()">
+							USERNAME <input type="text" ng-model="ctrl.loginUsername">
+							PASSWORD <input type="password" ng-model="ctrl.loginPassword">
+							<input type="submit" class="waves-effect waves-light btn teal darken-4" value="Log In">
+						</form>
+					</fieldset>
+				</main>
+
+			</div>
+		</section>
+
+		<section ng-if="ctrl.loggedInUser !== false">
+
+		<div class="navbar-fixed" ng-include="'partials/nav.html'">
+
+		</div>
+		<div class="maintitle">
+			<h2>Welcome {{ctrl.loggedInUser.username}}!</h2>
+			<h3>Trending Holiday Gifts</h3>
+		</div>
+
+				<div class="carousel">
+
+					<a href="{{ctrl.slideLink}}" target="_blank" class="slides" ><img ng-src="{{ctrl.slideImage}}" alt=""></a>
+					<a href="{{ctrl.slideLink1}}" target="_blank" class="slides" ><img ng-src="{{ctrl.slideImage1}}" alt=""></a>
+					<a href="{{ctrl.slideLink2}}" target="_blank" class="slides" ><img ng-src="{{ctrl.slideImage2}}" alt=""></a>
+				</div>
+
+				<div class="container chart">
+
+					<h2>holiShopper Budget Planner</h2>
+					<p>Organize your holiday shopping by clicking on the green buttons to filter your wishlist!</p>
+					<table class="highlight">
+						<thead>
+							<tr>
+							<th ng-click="ctrl.allCategory()"><button type="button" class="waves-effect waves-light btn teal darken-4">clear filter</button></th>
+
+							<th ng-repeat="category in ctrl.uniqueRecipientCategory" ng-click="ctrl.filterCategory(category)"><button type="button" class="waves-effect waves-light btn teal darken-4">{{category}}</button></th>
+
+							<th>TOTAL</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Budget</td>
+						<td ng-repeat="category in ctrl.uniqueRecipientCategory">{{ctrl.sumMoney(category, false)}} ({{ctrl.sumMoney(category, false)/ctrl.budget*100|number: 0}}%)</td>
+						<td>{{ctrl.budget|currency}}</td>
+					</tr>
+					<tr>
+						<td>Paid</td>
+						<td ng-repeat="category in ctrl.uniqueRecipientCategory">{{ctrl.sumMoney(category, true)}} ({{ctrl.sumMoney(category, true)/ctrl.paid*100|number: 0}}%)</td>
+						<td>{{ctrl.paid|currency}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+
+			<div class="main">
+
+
+
+
+
+
+			<div class="row">
+				<div class="sidebar col s15">
+					<div class="countdown">
+						<h4>Countdown To Christmas</h4>
+						<div id="timer">
+						  <span id="days"></span> days <br/>
+						  <span id="hours"></span> hours <br/>
+						  <span id="minutes"></span> minutes <br/>
+						  <span id="seconds"></span> seconds <br/>
+						</div>
+					</div>
+					<h2>Budget: {{ctrl.budget|currency}}</h2>
+					<h2>Paid: {{ctrl.paid|currency}}</h2>
+
+				</div>
+
+<!-- WISHLIST -->
+
+				<div class="wrapper">
+					<div class="divwishlist">
+						<div class="title col s11 offset-s1">
+							<h2>Wishlist</h2>
+
+								<select ng-model="order" class="browser-default">
+									<option value="" selected="selected">Sort By</option>
+									<option value="price">Price</option>
+									<option value="recipient">Recipient</option>
+									<option value="recipientCategory">Category</option>
+									<option value="priority">Priority</option>
+								</select>
+						</div>
+
+						<div class="wishlist col s11 offset-s1">
+
+								<div class="card sticky-action" ng-repeat="item in ctrl.wishlist
+						| filter:{'complete':false}:true | filter:{'recipientCategory':ctrl.searchBox}:true | filter:{'username':ctrl.loggedInUser.username}:true
+						| orderBy: order" ng-class="(item.priority === 'high') ? 'high' : ''">
+									  <div class="card-image waves-effect waves-block waves-light">
+										<img class="activator" ng-src="{{item.image}}" ng-click="ctrl.openShowModal(item)">
+									  </div>
+									  <div class="card-content">
+										<span class="card-title activator grey-text text-darken-4">{{item.name|limitTo: 11}}... for {{item.recipient}}<i class="material-icons right">more_vert</i></span>
+										<span><p><a href="{{item.storeUrl}}">{{item.storeName}}</a></p></span>
+										<span class="tags"><p>{{item.price |currency}}</p><p id="cattag2">{{item.recipientCategory}}</p></span>
+									  </div>
+									  <div class="card-action">
+										  <button ng-click="ctrl.toggleComplete(item)">BUY</button>
+										<button ng-click="ctrl.deleteItem(item)">DELETE</button>
+										<button ng-click="ctrl.funcSectionShow( item); ctrl.updateNotes=''">UPDATE</button>
+									  </div>
+									  <div class="card-reveal">
+										<span class="card-title grey-text text-darken-4">{{item.name}} for {{item.recipient}}<i class="material-icons right">close</i></span>
+										<h5>Price</h5>
+										<p>{{item.price |currency}}</p>
+										<h5>Priority</h5>
+										<p>{{item.priority}}</p>
+										<h5>Notes</h5>
+										<p>{{item.notes}}</p>
+									  </div>
+
+                </div>
+							</div>
+					</div>
+
+
+
+
+
+
+					<div class="title col s11 offset-s1">
+<!-- PURCHASED						 -->
+					<h2>Purchased</h2>
+					</div>
+
+					<div class="bought col s11 offset-s1">
+
+						<div class="card sticky-action" ng-repeat="item in ctrl.wishlist
+						| filter:{'complete':true}:true | filter:{'recipientCategory':ctrl.searchBox}:true | filter:{'username':ctrl.loggedInUser.username}:true
+						| orderBy: order">
+							<div class="card-image waves-effect waves-block waves-light">
+							  <img class="activator" ng-src="{{item.image}}" ng-click="ctrl.openShowModal(item)">
+							</div>
+							<div class="card-content">
+							  <span class="card-title activator grey-text text-darken-4">{{item.name|limitTo: 11}}... for {{item.recipient}}<i class="material-icons right">more_vert</i></span>
+							  <p><a href="{{item.storeUrl}}">{{item.storeName}}</a></p>
+							  	<span class="tags"><p>{{item.price |currency}}</p><p id="cattag">{{item.recipientCategory}}</p></span>
+
+							</div>
+							<div class="card-action">
+								<button ng-click="ctrl.toggleComplete(item)">RETURN</button>
+							  <button ng-click="ctrl.deleteItem(item)">DELETE</button>
+							  <button ng-click="ctrl.funcSectionShow( item);">UPDATE</button>
+							</div>
+							<div class="card-reveal">
+							  <span class="card-title grey-text text-darken-4">{{item.name}} for {{item.recipient}}<i class="material-icons right">close</i></span>
+							  <h5>Price</h5>
+							  <p>{{item.price |currency}}</p>
+							  <h5>Priority</h5>
+							  <p>{{item.priority}}</p>
+							  <h5>Notes</h5>
+							  <p>{{item.notes}}</p>
+							</div>
+						</div>
+					</div>
+
+			</div>
+				</div>
+				</div>
+<!-- CREATE MODAL -->
+				<section class="modal edit" ng-if="ctrl.displayCreateInfo">
+					<div class="container">
+						<form  ng-submit="ctrl.createItem()">
+							<h4>Create Wishlist Item!</h4>
+							<h6>Please fill out all fields</h6>
+							Name <input ng-model="ctrl.name" type="text"><br>
+							Recipient <input ng-model="ctrl.recipient" type="text"><br>
+							Recipient category <input ng-model="ctrl.recipientCategory" type="text"><br>
+							Price <input ng-model="ctrl.price" type="text"><br>
+							Image URL <input ng-model="ctrl.image" type="text"><br>
+							Store <input ng-model="ctrl.storeName" type="text"><br>
+							Online Store Page URL <input ng-model="ctrl.storeUrl" type="text"><br>
+							Priority
+									<p>
+										<label for="high">
+											<input id="high" class="with-gap" ng-model="ctrl.priority" type="radio" name="priority" value="high" >
+											<span>High</span>
+										</label>
+									</p>
+									<p>
+										<label for="medium">
+											<input id="medium" class="with-gap" ng-model="ctrl.priority" type="radio" name="priority" value="medium" >
+											<span>Medium</span>
+										</label>
+									</p>
+									<p>
+										<label for="low">
+											<input id="low" class="with-gap" ng-model="ctrl.priority" type="radio" name="priority" value="low">
+											<span>Low</span>
+										</label>
+									</p>
+
+							<textarea ng-model="ctrl.notes" name="notes" rows="8" cols="80" placeholder="Insert notes"></textarea><br><br>
+							<input type="submit" class="waves-effect waves-light btn teal darken-4" value="Create New Item">
+							<button type="button" class="waves-effect waves-light btn teal darken-4" ng-click="ctrl.displayCreateModal()">Close</button>
+						</form>
+					</div>
+
+				</section>
+
+<!-- EDIT MODAL -->
+				<section class="modal edit" ng-show="ctrl.sectionShow">
+					<div class="container">
+						<form action="#" ng-submit="ctrl.editItem(ctrl.item)">
+							<h4>Edit Wishlist Item!</h4>
+
+							Name <input ng-model="ctrl.updateName"  type="text" placeholder="{{ctrl.item.name}}" /><br>
+							Recipient <input ng-model="ctrl.updateRecipient" type="text" placeholder="{{ctrl.item.recipient}}"/><br>
+							Recipient category <input ng-model="ctrl.updateRecipientCategory" type="text" placeholder="{{ctrl.item.recipientCategory}}" /><br>
+							Price <input ng-model="ctrl.updatePrice" type="text" placeholder="{{ctrl.item.price}}" /><br>
+							Image <input ng-model="ctrl.updateImage" type="text"  placeholder="{{ctrl.item.image}}" /><br>
+							Store <input ng-model="ctrl.updateStoreName" type="text"  placeholder="{{ctrl.item.storeName}}" /><br>
+							Store link <input ng-model="ctrl.updateStoreUrl" type="text"  placeholder="{{ctrl.item.storeUrl}}" /><br>
+
+									Priority<br/>
+									<label for="high">
+											<input type="radio" id="high" ng-model="ctrl.updatePriority" class="with-gap"  name="priority" value="high" if(ctrl.item.priority === 'high'){ checked }  />
+											<span>High</span>
+										</label><br/>
+
+										<label for="medium">
+											<input type="radio" id="medium" ng-model="ctrl.updatePriority" class="with-gap"  name="priority" value="medium" if(ctrl.item.priority === 'medium'){ checked }/>
+											<span>Medium</span>
+										</label><br/>
+
+										<label for="low">
+											<input type="radio" id="low" ng-model="ctrl.updatePriority" class="with-gap"  name="priority" value="low" if(ctrl.item.priority === 'low'){ checked }/>
+											<span>Low</span>
+										</label><br/>
+
+							Notes <textarea ng-model="ctrl.updateNotes" name="notes" rows="8" cols="80" placeholder="{{ctrl.item.notes}}" /></textarea><br><br>
+							<input type="submit" class="waves-effect waves-light btn teal darken-4" value="Update Item" />
+							<button type="button" class="waves-effect waves-light btn teal darken-4" ng-click="ctrl.sectionShow = false ">Close</button>
+						</form>
+					</div>
+
+			  </section>
+		 </section>
+
+
+
+
+
+	<footer ng-include="'partials/footer.html'">
+
+
+	</footer>
+
+
+
+
+	</body>
+</html>
