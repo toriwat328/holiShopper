@@ -10,6 +10,10 @@
 
 https://holishopper.herokuapp.com/
 
+## Original Repo Link
+
+https://github.com/Ahwung/christmas-shopping
+
 ## Overview
 
 Created shopping application in order to allow users to create a shopping list for Christmas and keep track of all the presents for their loved ones
